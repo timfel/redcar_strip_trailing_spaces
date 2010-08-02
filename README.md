@@ -1,4 +1,4 @@
-# Strip Trailing Spaces for Gedit
+# Strip Trailing Spaces for Redcar
 
 This is a very simple clone of Gedit's "Save without trailing space" plugin for Redcar.
 
