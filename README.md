@@ -2,6 +2,8 @@
 
 This is a very simple clone of Gedit's "Save without trailing space" plugin for Redcar.
 
+This plugin is diabled by default. It can be easily enabled through Redcar's Plugins menu.
+
 ## Installation
 
     cd ~/.redcar/plugins

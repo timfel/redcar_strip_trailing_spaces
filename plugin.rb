@@ -1,6 +1,6 @@
 Plugin.define do
   name    "Strip Trailing Spaces"
-  version "0.1"
+  version "0.2"
   file     "lib", "strip_trailing_spaces"
   object  "Redcar::StripTrailingSpaces"
   dependencies "redcar", ">0",
