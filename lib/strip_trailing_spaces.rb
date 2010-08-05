@@ -37,6 +37,7 @@ module Redcar
         doc.scroll_to_line_at_top(top_line)
         offset=doc.offset_at_line(cursor_line) + line_offset
         doc.cursor_offset=offset
+        doc.ensure_visible(offset)
       end
     end
 
