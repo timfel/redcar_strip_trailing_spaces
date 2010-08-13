@@ -31,7 +31,13 @@ module Redcar
         line = doc.get_line(cursor_line)
         line_offset = line.rstrip.size if line_offset > line.rstrip.size
 
-        doc.text = doc.to_s.split("\n").each{|s| s.rstrip!}.join("\n") + "\n"
+        doc.line_count.times do |l|
+          line_text = doc.get_line(l)
+          line_text.rstrip!
+          start_offset = doc.offset_at_line(l)
+          end_offset = doc.offset_at_inner_end_of_line(l)
+          doc.replace(start_offset, end_offset - start_offset, line_text)
+        end
 
         # Adjust cursor offset and make visible
         doc.scroll_to_line_at_top(top_line)
