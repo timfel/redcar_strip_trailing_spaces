@@ -30,7 +30,10 @@ module Redcar
         line_offset = doc.cursor_line_offset
         line = doc.get_line(cursor_line)
         line_offset = line.rstrip.size if line_offset > line.rstrip.size
+        indenter = doc.controllers(Redcar::AutoIndenter::DocumentController)[0]
+        indenter = nil unless indenter.is_a?(Redcar::AutoIndenter::DocumentController)
 
+        indenter.increase_ignore if indenter != nil
         doc.line_count.times do |l|
           line_text = doc.get_line(l)
           line_text.rstrip!
@@ -38,6 +41,7 @@ module Redcar
           end_offset = doc.offset_at_inner_end_of_line(l)
           doc.replace(start_offset, end_offset - start_offset, line_text)
         end
+        indenter.decrease_ignore if indenter != nil
 
         # Adjust cursor offset and make visible
         doc.scroll_to_line_at_top(top_line)
