@@ -1,6 +1,8 @@
 * 0.3
-  - Changed "Enable" and "Disable" to "Enable Plugin" and "Disable Plugin"
-  - Fixed jumping by stripping line-by-line instead of entire file.
+  - Changed "Enable" and "Disable" to "Enable Plugin" and
+    "Disable Plugin" (stevenh512)
+  - Fixed jumping by stripping line-by-line instead of entire
+    file. (stevenh512)
 
 * 0.2
   - Can be enabled/disabled from the Plugins menu (stevenh512)
