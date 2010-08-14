@@ -24,30 +24,14 @@ module Redcar
 
     def self.before_save(doc)
       if (doc.mirror.is_a?(Redcar::Project::FileMirror) && storage['enabled'])
-        # Read cursor position and adjust line offset
-        cursor_line = doc.cursor_line
-        top_line = doc.smallest_visible_line
-        line_offset = doc.cursor_line_offset
-        line = doc.get_line(cursor_line)
-        line_offset = line.rstrip.size if line_offset > line.rstrip.size
         indenter = doc.controllers(Redcar::AutoIndenter::DocumentController)[0]
         indenter = nil unless indenter.is_a?(Redcar::AutoIndenter::DocumentController)
 
         indenter.increase_ignore if indenter != nil
         doc.line_count.times do |l|
-          line_text = doc.get_line(l)
-          line_text.rstrip!
-          start_offset = doc.offset_at_line(l)
-          end_offset = doc.offset_at_inner_end_of_line(l)
-          doc.replace(start_offset, end_offset - start_offset, line_text)
+          doc.replace_line(l) { |line_text| line_text.rstrip }
         end
         indenter.decrease_ignore if indenter != nil
-
-        # Adjust cursor offset and make visible
-        doc.scroll_to_line_at_top(top_line)
-        offset=doc.offset_at_line(cursor_line) + line_offset
-        doc.cursor_offset=offset
-        doc.ensure_visible(offset)
       end
     end
 
